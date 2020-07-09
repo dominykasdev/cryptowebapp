@@ -1,0 +1,6 @@
+node_modules/
+src/components/userHoldingsComponents/holdingsFormPageOne.js
+src/components/userHoldingsComponents/holdingsFormPageTwo.js
+src/components/userHoldingsComponents/holdingsFormPageThree.js
+src/components/userHoldingsComponents/userHoldingsForm.js
+src/apis/apiKeys.js
