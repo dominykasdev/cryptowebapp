@@ -75,7 +75,7 @@ export const registerUser = (userId) => async (dispatch, getState) => {
   const { userId } = getState().auth;
 
   const response = await coinMarketCap.post(
-    path, { 'id': userId }
+    path, { 'id': userId, 'action': 'register' }
   ).then((e) => {
     console.log(e);
   }).catch((error) => {
