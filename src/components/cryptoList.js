@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchCryptoData, fetchUserData } from "../actions";
+import { fetchCryptoData, fetchUser } from "../actions";
 import { CryptoInfoBox } from "./CryptoInfoBox";
 
 class CryptoList extends React.Component {
@@ -102,7 +102,7 @@ class CryptoList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { crypto: state.crypto, userCrypto: state.user.holdings, currency: state.user.currency, isSignedIn: state.auth.isSignedIn, mergedCrypto: [] };
+  return { crypto: state.crypto, userCrypto: state.holdings, currency: state.user.currency, isSignedIn: state.auth.isSignedIn, mergedCrypto: [] };
 };
 
-export default connect(mapStateToProps, { fetchCryptoData, CryptoInfoBox, fetchUserData })(CryptoList);
+export default connect(mapStateToProps, { fetchCryptoData, CryptoInfoBox, fetchUser })(CryptoList);

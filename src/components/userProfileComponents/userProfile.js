@@ -1,6 +1,6 @@
 import React from 'react';
 // import { Field, reduxForm } from 'redux-form'
-import { patchUserData } from '../../actions';
+import { updateUser } from '../../actions';
 import { connect } from 'react-redux';
 import UserForm from './userForm';
 
@@ -10,7 +10,7 @@ class userProfile extends React.Component {
     }
 
     onSubmit = (formValues) => {
-        this.props.patchUserData(formValues, 'update_profile');
+        this.props.updateUser(formValues, 'update_profile');
     };
 
     render() {
@@ -28,4 +28,4 @@ const mapStateToProps = (state) => {
     return { 'name': state.user.name, 'surname': state.user.surname, 'email': state.user.email }
 }
 
-export default connect(mapStateToProps, { patchUserData })(userProfile);
+export default connect(mapStateToProps, { updateUser })(userProfile);

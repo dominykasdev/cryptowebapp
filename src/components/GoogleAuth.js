@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { signIn, signOut, fetchUserData, registerUser } from "../actions";
+import { signIn, signOut, fetchUser, registerUser, fetchHoldings } from "../actions";
 import { clientId } from '../apis/apiKeys.js';
 
 class GoogleAuth extends React.Component {
@@ -22,11 +22,15 @@ class GoogleAuth extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        
-        if (this.props.isSignedIn && !this.props.userData.hasOwnProperty('id') && this.props.userData !== '' && this.props.id !== undefined && this.props.isSignedIn !== prevProps.isSignedIn) {
-            this.props.fetchUserData(this.props.id);    // fetch user data
-        } else if (this.props.userData.holdings.length == 0 && this.props.isSignedIn) { // if no id found, register user
-            this.props.registerUser(this.props.id);
+
+        // if (this.props.isSignedIn && !this.props.userData.hasOwnProperty('id') && this.props.userData !== '' && this.props.id !== undefined && this.props.isSignedIn !== prevProps.isSignedIn) {
+        if (this.props.isSignedIn && !this.props.userData.hasOwnProperty('id') && this.props.userData !== '' && this.props.isSignedIn !== prevProps.isSignedIn) {
+            this.props.fetchUser();    // fetch user data
+            this.props.fetchHoldings();
+        } else if (Array.isArray(this.props.holdings) && this.props.isSignedIn) {
+            if (this.props.holdings.length == 0) {
+                this.props.registerUser(this.props.id);  // if no id found, register user
+            }
         }
     }
 
@@ -70,7 +74,7 @@ class GoogleAuth extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return { isSignedIn: state.auth.isSignedIn, id: state.auth.userId, userData: state.user };
+    return { isSignedIn: state.auth.isSignedIn, id: state.auth.userId, userData: state.user, holdings: state.holdings };
 };
 
-export default connect(mapStateToProps, { signIn, signOut, fetchUserData, registerUser })(GoogleAuth);
+export default connect(mapStateToProps, { signIn, signOut, fetchUser, registerUser, fetchHoldings })(GoogleAuth);

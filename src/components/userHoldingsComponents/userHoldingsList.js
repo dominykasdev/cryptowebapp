@@ -1,18 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { deleteHolding, deleteHoldings, updateHolding } from '../../actions';
 
 class UserHoldingsList extends React.Component {
     renderList() {
-        if (this.props.holdings !== undefined) {
+        if (this.props.holdings.length) {
             return this.props.holdings.map((value, index) => {
-                if (value.crypto_symbol !== null) {
+                if (value.symbol !== null) {
                     return (
                         <li className="listItem" key={index + 1}>
-                            <div className="left inlineBlock">{value.crypto_symbol}</div>
-                            <div className="inlineBlock">{value.crypto_holding}</div>
+                            <div className="left inlineBlock">{value.symbol}</div>
+                            <div className="inlineBlock">{value.amount}</div>
                             <div className="inlineBlock">{value.invested}</div>
-                            <div className="right inlineBlock">Delete/Edit buttons</div>
-                        </li>
+                            <div className="right inlineBlock"><button className="deleteBtn" onClick={() => this.props.deleteHolding(value.crypto_symbol)}>Delete</button></div>
+                        </li >
                     );
                 }
             }
@@ -20,9 +21,6 @@ class UserHoldingsList extends React.Component {
         } else {
             return <div>Loading...</div>
         }
-
-
-
     }
 
 
@@ -45,7 +43,7 @@ class UserHoldingsList extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return { holdings: state.user.holdings, currency: state.user.currency }
+    return { holdings: state.holdings, currency: state.user.currency }
 }
 
-export default connect(mapStateToProps, {})(UserHoldingsList);
+export default connect(mapStateToProps, { deleteHolding })(UserHoldingsList);

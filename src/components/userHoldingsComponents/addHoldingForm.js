@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field, reduxForm, getFormValues } from 'redux-form'
-import { patchUserData } from '../../actions';
+import { updateUser } from '../../actions';
 import { connect } from 'react-redux';
 import list from '../../data/cryptolist.json';
 import validate from './validate';
@@ -59,7 +59,7 @@ class addHoldingForm extends React.Component {
 
     onSubmit = (formValues) => {
         // console.log(this.concatHoldings(formValues));
-        this.props.patchUserData(this.concatHoldings(formValues), 'update_holdings');
+        this.props.updateUser(this.concatHoldings(formValues), 'update_holdings');
     };
 
     render() {
@@ -85,4 +85,4 @@ const mapStateToProps = (state) => {
 addHoldingForm = reduxForm({ form: 'addHoldingForm', validate })(addHoldingForm);
 
 
-export default connect(mapStateToProps, { patchUserData })(addHoldingForm);
+export default connect(mapStateToProps, { updateUser })(addHoldingForm);

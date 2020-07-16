@@ -1,12 +1,12 @@
 export default (state = {}, action) => {
     switch (action.type) {
-        case "FETCH_USER":
+        case "FETCH_HOLDINGS":
             return action.payload
-        case "POST_USER":
+        case "UPDATE_HOLDING":
             return { ...state, [action.payload.id]: action.payload }
-        case "REGISTER_USER":
+        case "DELETE_HOLDING":
             return { ...state, payload: action.payload }
-        case "DELETE_USER":
+        case "DELETE_HOLDINGS":
             return { ...state, payload: action.payload }
         default:
             return state;
