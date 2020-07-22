@@ -1,5 +1,5 @@
 import cryptoAppApi from "../apis/cryptoAppApi";
-import { SIGN_IN, SIGN_OUT, TOGGLE_MENU, FETCH_CRYPTO, FETCH_USER, UPDATE_USER, REGISTER_USER, DELETE_USER, FETCH_HOLDINGS, UPDATE_HOLDING, DELETE_HOLDING, DELETE_HOLDINGS } from "./type";
+import { SIGN_IN, SIGN_OUT, TOGGLE_MENU, FETCH_CRYPTO, FETCH_USER, UPDATE_USER, REGISTER_USER, DELETE_USER, FETCH_HOLDINGS, POST_HOLDING, UPDATE_HOLDING, DELETE_HOLDING, DELETE_HOLDINGS } from "./type";
 import history from '../history';
 
 export const fetchCryptoData = (symbols, currency) => async dispatch => {
@@ -31,7 +31,7 @@ export const fetchUser = () => async (dispatch, getState) => {
   const response = await cryptoAppApi.get(
     "/user/?id=" + userId
   );
-  // console.log(response.data);
+  console.log(response.data);
   // let results = { holdings: [] };
   // let i = 0;
   // Object.keys(response.data).forEach((key, index) => {
@@ -90,6 +90,23 @@ export const fetchHoldings = () => async (dispatch, getState) => {
   dispatch({ type: FETCH_HOLDINGS, payload: response.data });
 }
 
+export const postHolding = (formValues) => async (dispatch, getState) => {
+  const { userId } = getState().auth;
+
+  const response = await cryptoAppApi.post(
+    "/holdings/?id=" + userId, { "formValues": formValues }
+  ).then((e) => {
+    console.log(e);
+    dispatch(fetchHoldings());
+  }).catch((error) => {
+    console.log(error.response);
+  });
+  // console.log(response);
+
+  dispatch({ type: POST_HOLDING, payload: response });
+  history.push("/projects/crypto_app/holdings");
+}
+
 export const updateHolding = (formValues) => async (dispatch, getState) => {
   const { userId } = getState().auth;
 
@@ -103,20 +120,21 @@ export const updateHolding = (formValues) => async (dispatch, getState) => {
   console.log(response);
 
   dispatch({ type: UPDATE_HOLDING, payload: response });
-  history.push("/projects/crypto_app/holdings");
+  // history.push("/projects/crypto_app/holdings");
 }
 
-export const deleteHolding = (cryptoSymbol) => async (dispatch, getState) => {
+export const deleteHolding = (symbol) => async (dispatch, getState) => {
   const { userId } = getState().auth;
 
   const response = await cryptoAppApi.delete(
-    "/holdings/?id=" + userId, { 'symbol': cryptoSymbol, 'action': 'delete_holding' }
+    "/holdings/?id=" + userId + "&symbol=" + symbol
   ).then((e) => {
     console.log(e);
+    dispatch(fetchHoldings());
   }).catch((error) => {
     console.log(error.response);
   });
-  console.log(response);
+  // console.log(response);
 
   dispatch({ type: DELETE_HOLDING, payload: response });
 }

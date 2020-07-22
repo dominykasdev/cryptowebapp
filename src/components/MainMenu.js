@@ -49,13 +49,15 @@ class MainMenu extends React.Component {
     render() {
         // console.log(this.props);
         return (
-            <div className={`mainMenu animate ${this.props.menuStatus ? 'visible' : 'hidden'}`}>
-                <div className="col12">
-                    <h2>Menu</h2>
-                    <div className="closeBtn animate" onClick={() => this.props.toggleMenu()}>&times;</div>
-                    {this.mainMenuOptions()}
-                </div>
+            <div className={`fullscreen ${this.props.menuStatus ? 'visible' : 'hidden delay'}`} onClick={() => this.props.toggleMenu()}>
+                <div className={`mainMenu animate ${this.props.menuStatus ? 'visible' : 'hidden'}`}>
+                    <div className="col12">
+                        <h2>Menu</h2>
+                        <div className="closeBtn animate">&times;</div>
+                        {this.mainMenuOptions()}
+                    </div>
 
+                </div>
             </div>
         )
     }

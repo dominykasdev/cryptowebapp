@@ -27,10 +27,10 @@ class GoogleAuth extends React.Component {
         if (this.props.isSignedIn && !this.props.userData.hasOwnProperty('id') && this.props.userData !== '' && this.props.isSignedIn !== prevProps.isSignedIn) {
             this.props.fetchUser();    // fetch user data
             this.props.fetchHoldings();
-        } else if (Array.isArray(this.props.holdings) && this.props.isSignedIn) {
-            if (this.props.holdings.length == 0) {
-                this.props.registerUser(this.props.id);  // if no id found, register user
-            }
+        } else if (Array.isArray(this.props.holdings) && this.props.userData == "" && this.props.isSignedIn) {
+            // if (this.props.holdings.length == 0) {
+            this.props.registerUser(this.props.id);  // if no id found, register user
+            // }
         }
     }
 

@@ -5,9 +5,10 @@ import { CryptoInfoBox } from "./CryptoInfoBox";
 
 class CryptoList extends React.Component {
   componentDidMount() {
-    if (this.props.userCrypto !== undefined) {
-      const requestedSymbols = this.getUserCryptoSymbols(this.props.userCrypto);
+    if (this.props.holdings.length) {
+      const requestedSymbols = this.getHoldingsSymbols(this.props.holdings);
       this.props.fetchCryptoData(requestedSymbols, this.props.currency);
+      this.mergeCryptoData();
     }
   }
 
@@ -15,8 +16,8 @@ class CryptoList extends React.Component {
     const currentCryptoProp = JSON.stringify(this.props.crypto);
     const previousCryptoProp = JSON.stringify(prevProps.crypto);
 
-    if (currentCryptoProp !== previousCryptoProp && previousCryptoProp !== '{}' || JSON.stringify(this.props.crypto) == '{}' && this.props.userCrypto !== undefined) {
-      const requestedSymbols = this.getUserCryptoSymbols(this.props.userCrypto);
+    if (/*currentCryptoProp !== previousCryptoProp && previousCryptoProp !== '{}' ||*/ JSON.stringify(this.props.crypto) == '{}' && Array.isArray(this.props.holdings)) {
+      const requestedSymbols = this.getHoldingsSymbols(this.props.holdings);
       this.props.fetchCryptoData(requestedSymbols, this.props.currency).then(data => {
         console.log('crypto data refreshed');
         this.mergeCryptoData();
@@ -24,31 +25,31 @@ class CryptoList extends React.Component {
     }
   }
 
-  getUserCryptoSymbols = (crypto) => {
+  getHoldingsSymbols = (crypto) => {
     let result = '';
 
     for (let i = 0; i < crypto.length; i++) {
-      if (crypto[i].crypto_symbol !== null) {
+      if (crypto[i].symbol !== null) {
         if (i == 0 || result == '') {
-          result += crypto[i].crypto_symbol;
+          result += crypto[i].symbol;
         } else {
-          result += ',' + crypto[i].crypto_symbol
+          result += ',' + crypto[i].symbol
         }
       }
     }
     return result;
   }
 
-  mergeCryptoData = (crypto, userCrypto) => {
+  mergeCryptoData = (crypto, holdings) => {
     crypto = this.props.crypto;
-    userCrypto = this.props.userCrypto;
+    holdings = this.props.holdings;
 
     crypto.map((item, index) => {
-      for (let i = 0; i < userCrypto.length; i++) {
-        if (item.symbol == userCrypto[i].crypto_holding) {
+      for (let i = 0; i < holdings.length; i++) {
+        if (item.symbol == holdings[i].symbol) {
           return (
-            item.holding_amount = userCrypto[i].crypto_holding,
-            item.invested = userCrypto[i].invested
+            item.amount = holdings[i].amount,
+            item.invested = holdings[i].invested
           );
         }
       }
@@ -81,8 +82,8 @@ class CryptoList extends React.Component {
             infoBox1h={cryptoItem.quote.USD.percent_change_1h}
             infoBox24h={cryptoItem.quote.USD.percent_change_24h}
             infoBox7d={cryptoItem.quote.USD.percent_change_7d}
-            amount={cryptoItem.crypto_holding}
-            amountValue={this.calculateProfit(cryptoItem.crypto_holding, cryptoItem.quote.USD.price, cryptoItem.invested)}
+            amount={cryptoItem.amount}
+            amountValue={this.calculateProfit(cryptoItem.amount, cryptoItem.quote.USD.price, cryptoItem.invested)}
           />
         );
       });
@@ -93,7 +94,7 @@ class CryptoList extends React.Component {
 
   render() {
     console.log(this.props);
-    if (this.props.userCrypto !== undefined && this.props.isSignedIn) {
+    if (this.props.holdings !== undefined && this.props.isSignedIn) {
       return <div className="mainContent">{this.renderList()}</div>;
     } else {
       return <div className="mainContent">Login to add your holdings and see live crypto stats.</div>;
@@ -102,7 +103,7 @@ class CryptoList extends React.Component {
 }
 
 const mapStateToProps = state => {
-  return { crypto: state.crypto, userCrypto: state.holdings, currency: state.user.currency, isSignedIn: state.auth.isSignedIn, mergedCrypto: [] };
+  return { crypto: state.crypto, holdings: state.holdings, currency: state.user.currency, isSignedIn: state.auth.isSignedIn, mergedCrypto: [] };
 };
 
 export default connect(mapStateToProps, { fetchCryptoData, CryptoInfoBox, fetchUser })(CryptoList);
