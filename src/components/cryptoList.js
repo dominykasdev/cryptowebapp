@@ -5,10 +5,11 @@ import { CryptoInfoBox } from "./CryptoInfoBox";
 
 class CryptoList extends React.Component {
   componentDidMount() {
-    if (this.props.holdings.length) {
+    if (this.props.holdings.length && this.props.currency !== undefined) {
       const requestedSymbols = this.getHoldingsSymbols(this.props.holdings);
-      this.props.fetchCryptoData(requestedSymbols, this.props.currency);
-      this.mergeCryptoData();
+      this.props.fetchCryptoData(requestedSymbols, this.props.currency).then(data => {
+        this.mergeCryptoData();
+      });
     }
   }
 
@@ -16,7 +17,7 @@ class CryptoList extends React.Component {
     const currentCryptoProp = JSON.stringify(this.props.crypto);
     const previousCryptoProp = JSON.stringify(prevProps.crypto);
 
-    if (/*currentCryptoProp !== previousCryptoProp && previousCryptoProp !== '{}' ||*/ JSON.stringify(this.props.crypto) == '{}' && Array.isArray(this.props.holdings)) {
+    if (/*currentCryptoProp !== previousCryptoProp && previousCryptoProp !== '{}' ||*/ JSON.stringify(this.props.crypto) == '{}' && Array.isArray(this.props.holdings) && this.props.currency !== undefined) {
       const requestedSymbols = this.getHoldingsSymbols(this.props.holdings);
       this.props.fetchCryptoData(requestedSymbols, this.props.currency).then(data => {
         console.log('crypto data refreshed');
@@ -68,8 +69,7 @@ class CryptoList extends React.Component {
     return profit;
   }
 
-  renderList(holdingsList) {
-    // console.log(this.props);
+  renderList() {
     if (this.props.crypto.length) {
       return this.props.crypto.map((cryptoItem, index) => {
         return (
@@ -93,7 +93,6 @@ class CryptoList extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     if (this.props.holdings !== undefined && this.props.isSignedIn) {
       return <div className="mainContent">{this.renderList()}</div>;
     } else {

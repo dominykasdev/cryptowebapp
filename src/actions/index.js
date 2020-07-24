@@ -1,5 +1,5 @@
 import cryptoAppApi from "../apis/cryptoAppApi";
-import { SIGN_IN, SIGN_OUT, TOGGLE_MENU, FETCH_CRYPTO, FETCH_USER, UPDATE_USER, REGISTER_USER, DELETE_USER, FETCH_HOLDINGS, POST_HOLDING, UPDATE_HOLDING, DELETE_HOLDING, DELETE_HOLDINGS } from "./type";
+import { SIGN_IN, SIGN_OUT, TOGGLE_MENU, TOGGLE_MODAL, FETCH_CRYPTO, FETCH_USER, UPDATE_USER, REGISTER_USER, DELETE_USER, FETCH_HOLDINGS, POST_HOLDING, UPDATE_HOLDING, DELETE_HOLDING, DELETE_HOLDINGS } from "./type";
 import history from '../history';
 
 export const fetchCryptoData = (symbols, currency) => async dispatch => {
@@ -160,6 +160,13 @@ export const toggleMenu = (closed) => {
     payload: closed
   }
 };
+
+export const toggleModal = (visible) => {
+  return {
+    type: TOGGLE_MODAL,
+    payload: visible
+  }
+}
 
 export const signIn = (userId) => {
   return {

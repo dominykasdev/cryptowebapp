@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/projects/crypto_app/static/css/main.9cb2501f.chunk.css",
-    "main.js": "/projects/crypto_app/static/js/main.c5e97152.chunk.js",
-    "main.js.map": "/projects/crypto_app/static/js/main.c5e97152.chunk.js.map",
+    "main.css": "/projects/crypto_app/static/css/main.fb302577.chunk.css",
+    "main.js": "/projects/crypto_app/static/js/main.ee7d1051.chunk.js",
+    "main.js.map": "/projects/crypto_app/static/js/main.ee7d1051.chunk.js.map",
     "runtime-main.js": "/projects/crypto_app/static/js/runtime-main.98da2d4d.js",
     "runtime-main.js.map": "/projects/crypto_app/static/js/runtime-main.98da2d4d.js.map",
-    "static/js/2.2871929b.chunk.js": "/projects/crypto_app/static/js/2.2871929b.chunk.js",
-    "static/js/2.2871929b.chunk.js.map": "/projects/crypto_app/static/js/2.2871929b.chunk.js.map",
+    "static/js/2.f1241ea5.chunk.js": "/projects/crypto_app/static/js/2.f1241ea5.chunk.js",
+    "static/js/2.f1241ea5.chunk.js.map": "/projects/crypto_app/static/js/2.f1241ea5.chunk.js.map",
     "index.html": "/projects/crypto_app/index.html",
-    "precache-manifest.2531fda8507d93f2648d5509b3a96cbc.js": "/projects/crypto_app/precache-manifest.2531fda8507d93f2648d5509b3a96cbc.js",
+    "precache-manifest.b7d0ffb0b6a1633be2c849c26e566532.js": "/projects/crypto_app/precache-manifest.b7d0ffb0b6a1633be2c849c26e566532.js",
     "service-worker.js": "/projects/crypto_app/service-worker.js",
-    "static/css/main.9cb2501f.chunk.css.map": "/projects/crypto_app/static/css/main.9cb2501f.chunk.css.map",
-    "static/js/2.2871929b.chunk.js.LICENSE.txt": "/projects/crypto_app/static/js/2.2871929b.chunk.js.LICENSE.txt"
+    "static/css/main.fb302577.chunk.css.map": "/projects/crypto_app/static/css/main.fb302577.chunk.css.map",
+    "static/js/2.f1241ea5.chunk.js.LICENSE.txt": "/projects/crypto_app/static/js/2.f1241ea5.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.98da2d4d.js",
-    "static/js/2.2871929b.chunk.js",
-    "static/css/main.9cb2501f.chunk.css",
-    "static/js/main.c5e97152.chunk.js"
+    "static/js/2.f1241ea5.chunk.js",
+    "static/css/main.fb302577.chunk.css",
+    "static/js/main.ee7d1051.chunk.js"
   ]
 }
