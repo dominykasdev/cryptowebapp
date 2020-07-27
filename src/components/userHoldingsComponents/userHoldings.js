@@ -6,9 +6,9 @@ import { connect } from 'react-redux';
 
 class userHoldings extends React.Component {
 
-    onSubmit = (formValues) => {
-        console.log(formValues);
-    };
+    // onSubmit = (formValues) => {
+    //     console.log(formValues);
+    // };
 
     render() {
         return (

@@ -25,7 +25,7 @@ class addHoldingForm extends React.Component {
         return (
             <div className="field">
                 <label>{label}</label>
-                <input {...input} />
+                <input {...input} type="number" />
                 {touched && error && <span className="error">{error}</span>}
             </div>
         )

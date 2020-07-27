@@ -161,10 +161,10 @@ export const toggleMenu = (closed) => {
   }
 };
 
-export const toggleModal = (visible) => {
+export const toggleModal = (type, options) => {
   return {
     type: TOGGLE_MODAL,
-    payload: visible
+    payload: { type, options }
   }
 }
 

@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { deleteHolding, deleteHoldings, updateHolding, fetchHoldings, toggleModal } from '../../actions';
 import Modal from '../Modal';
+import EditHoldingForm from './editHoldingForm';
 
 class UserHoldingsList extends React.Component {
 
     renderDeleteAllButton() {
         if (this.props.holdings.length) {
             return (
-                <button className="button deleteBtn" onClick={() => this.props.toggleModal()}>Delete all holdings</button>
+                <button className="button deleteBtn" onClick={() => this.props.toggleModal('DELETE_ALL_HOLDINGS')}>Delete all holdings</button>
             );
         }
     }
@@ -22,31 +23,46 @@ class UserHoldingsList extends React.Component {
         );
     }
 
+    renderDeleteActions(e) {
+        return (
+            <React.Fragment>
+                <button className="button deleteBtn inlineBlock" onClick={() => { this.props.deleteHolding(this.props.modalOptions); this.props.toggleModal(); }}>Delete</button>
+                <button className="button cancel" onClick={() => this.props.toggleModal()}>Cancel</button>
+            </React.Fragment>
+        );
+    }
+
+    renderEditActions() {
+        return (
+            <EditHoldingForm /> //need to pass props to form
+        );
+    }
+
     renderModal() {
         if (this.props.modalVisible) {
-            // switch (this.props.modalType) {
-            //     case "deleteAll":
-            return <Modal
-                title="Delete all holdings"
-                content="You are about to delete all of your holdings! Are you sure?"
-                actions={this.renderDeleteAllActions()}
-                visible={this.props.modalVisible}
-                onDismiss={() => this.props.toggleModal()} />
-            //     case "delete":
-            //         return <Modal
-            //             title="Delete holdings"
-            //             content={`You are about to delete ${holding} ! Are you sure?`}
-            //             actions={this.renderDeleteActions()}
-            //             visible={this.props.modalVisible}
-            //             onDismiss={() => this.props.toggleModal()} />
-            //     case "edit":
-            //         return <Modal
-            //             title="Edit holding"
-            //             content="Insert new"
-            //             actions={this.renderEditActions()}
-            //             visible={this.props.modalVisible}
-            //             onDismiss={() => this.props.toggleModal()} />
-            // }
+            switch (this.props.modalType) {
+                case "DELETE_ALL_HOLDINGS":
+                    return <Modal
+                        title="Delete all holdings"
+                        content="You are about to delete all of your holdings! Are you sure?"
+                        actions={this.renderDeleteAllActions()}
+                        visible={this.props.modalVisible}
+                        onDismiss={() => this.props.toggleModal()} />
+                case "DELETE_HOLDING":
+                    return <Modal
+                        title="Delete holding"
+                        content={`You are about to delete ${this.props.modalOptions}! Are you sure?`}
+                        actions={this.renderDeleteActions()}
+                        visible={this.props.modalVisible}
+                        onDismiss={() => this.props.toggleModal()} />
+                case "EDIT_HOLDING":
+                    return <Modal
+                        title="Edit holding"
+                        content={`Insert new figures below for ${this.props.modalOptions}.`}
+                        actions={this.renderEditActions()}
+                        visible={this.props.modalVisible}
+                        onDismiss={() => this.props.toggleModal()} />
+            }
 
         }
     }
@@ -60,7 +76,7 @@ class UserHoldingsList extends React.Component {
                             <div className="left inlineBlock">{value.symbol}</div>
                             <div className="inlineBlock">{value.amount}</div>
                             <div className="inlineBlock">{value.invested}</div>
-                            <div className="right inlineBlock"><button className="deleteBtn" onClick={() => this.props.deleteHolding(value.symbol)}>Delete</button></div>
+                            <div className="right inlineBlock"><button className="button" onClick={() => this.props.toggleModal('EDIT_HOLDING', value.symbol)}>Edit</button><button className="deleteBtn" onClick={() => this.props.toggleModal('DELETE_HOLDING', value.symbol)}>Delete</button></div>
                         </li >
                     );
                 }
@@ -92,7 +108,7 @@ class UserHoldingsList extends React.Component {
 }
 
 const mapStateToProps = state => {
-    return { holdings: state.holdings, currency: state.user.currency, isSignedIn: state.auth.isSignedIn, modalVisible: state.modal.visible, modalType: null }
+    return { holdings: state.holdings, currency: state.user.currency, isSignedIn: state.auth.isSignedIn, modalVisible: state.modal.visible, modalType: state.modal.type, modalOptions: state.modal.options }
 }
 
 export default connect(mapStateToProps, { deleteHolding, deleteHoldings, fetchHoldings, toggleModal })(UserHoldingsList);

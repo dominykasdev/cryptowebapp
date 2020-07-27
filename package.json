@@ -1,6 +1,6 @@
 {
   "name": "cryptowebapp",
-  "version": "0.1.0",
+  "version": "0.7.5",
   "private": true,
   "homepage": "https://dominykas.dev/projects/crypto_app/",
   "dependencies": {
@@ -20,7 +20,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

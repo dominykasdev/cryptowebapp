@@ -5,7 +5,7 @@ export default (state = {}, action) => {
         case "POST_HOLDING":
             return state
         case "UPDATE_HOLDING":
-            return { ...state, [action.payload.id]: action.payload }
+            return []
         case "DELETE_HOLDING":
             return []
         case "DELETE_HOLDINGS":
