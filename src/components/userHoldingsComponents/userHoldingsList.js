@@ -76,7 +76,7 @@ class UserHoldingsList extends React.Component {
                             <div className="left inlineBlock">{value.symbol}</div>
                             <div className="inlineBlock">{value.amount}</div>
                             <div className="inlineBlock">{value.invested}</div>
-                            <div className="right inlineBlock"><button className="button" onClick={() => this.props.toggleModal('EDIT_HOLDING', value.symbol)}>Edit</button><button className="deleteBtn" onClick={() => this.props.toggleModal('DELETE_HOLDING', value.symbol)}>Delete</button></div>
+                            <div className="right inlineBlock"><button className="editBtn" onClick={() => this.props.toggleModal('EDIT_HOLDING', value.symbol)}>Edit</button><button className="deleteBtn" onClick={() => this.props.toggleModal('DELETE_HOLDING', value.symbol)}>Delete</button></div>
                         </li >
                     );
                 }

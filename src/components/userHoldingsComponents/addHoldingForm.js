@@ -7,16 +7,17 @@ import validate from './validate';
 
 class addHoldingForm extends React.Component {
 
-    renderSymbolDropDown = ({ input, label }) => {
+    renderSymbolDropDown = ({ input, label, meta: { touched, error } }) => {
         return (
             <div className="field">
                 <label>{label}</label>
-                <select {...input}>
+                <select {...input} required>
                     <option></option>
                     {list.map(value => {
                         return <option value={value.symbol} key={value.id}>{value.name}</option>
                     })}
                 </select>
+                {touched && error && <span className="error">{error}</span>}
             </div>
         )
     }
@@ -25,38 +26,13 @@ class addHoldingForm extends React.Component {
         return (
             <div className="field">
                 <label>{label}</label>
-                <input {...input} type="number" />
+                <input {...input} type="number" step="0.00001" min="0" required />
                 {touched && error && <span className="error">{error}</span>}
             </div>
         )
     }
 
-    concatHoldings = (formValues) => {
-        const holdings = this.props.holdings;
-
-        //check for exisitng holding type
-        for (let i = 0; i < holdings.length; i++) {
-            if (formValues.holding_type == holdings[i].crypto_symbol) {
-                holdings[i].crypto_symbol = formValues.holding_type;
-                holdings[i].crypto_holding = formValues.holding_amount;
-                holdings[i].invested = formValues.invested;
-                return holdings;
-            }
-        }
-
-        // add new holding
-        for (let i = 0; i < holdings.length; i++) {
-            if (holdings[i].crypto_symbol == null) {
-                holdings[i].crypto_symbol = formValues.holding_type;
-                holdings[i].crypto_holding = formValues.holding_amount;
-                holdings[i].invested = formValues.invested;
-                return holdings;
-            }
-        }
-    }
-
     onSubmit = (formValues) => {
-        // console.log(this.concatHoldings(formValues));
         this.props.postHolding(formValues);
     };
 
@@ -66,8 +42,8 @@ class addHoldingForm extends React.Component {
                 <h3>Fill the form in to add your holding.</h3>
                 <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
                     <Field name="symbol" component={this.renderSymbolDropDown} label="Find your cryptocurrency" />
-                    <Field name="amount" component={this.renderInput} label={`Enter the amount ${/*!this.props.form_data.holding_type ? this.props.form_data.holding_type : '...'*/''} you hold.`} />
-                    <Field name="invested" component={this.renderInput} label={`How much have you invested${/*!this.props.form_data.holding_type ? this.props.form_data.holding_type : '...'*/''} (${this.props.currency})?`} />
+                    <Field name="amount" component={this.renderInput} label="Enter the amount you hold." />
+                    <Field name="invested" component={this.renderInput} label={`How much have you invested (${this.props.currency})?`} />
                     <button className="button">Submit</button>
                 </form>
             </div>
@@ -76,7 +52,6 @@ class addHoldingForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    // let holding_type = state.form.addHoldingForm.holding_type ? 'true' : 'false'
     return { formData: getFormValues('addHoldingForm')(state), currency: state.user.currency, holdings: state.holdings }
 }
 

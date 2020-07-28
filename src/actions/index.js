@@ -12,7 +12,6 @@ export const fetchCryptoData = (symbols, currency) => async dispatch => {
   const response = await cryptoAppApi.get(
     urlPath + "?symbol=" + symbols + '&convert=' + currency
   );
-  // console.log(response);
 
   let cryptoArray = [];
 
@@ -85,7 +84,6 @@ export const fetchHoldings = () => async (dispatch, getState) => {
   ).catch((error) => {
     console.log(error.response);
   });
-  // console.log(response);
 
   dispatch({ type: FETCH_HOLDINGS, payload: response.data });
 }
@@ -96,12 +94,10 @@ export const postHolding = (formValues) => async (dispatch, getState) => {
   const response = await cryptoAppApi.post(
     "/holdings/?id=" + userId, { "formValues": formValues }
   ).then((e) => {
-    console.log(e);
     dispatch(fetchHoldings());
   }).catch((error) => {
     console.log(error.response);
   });
-  // console.log(response);
 
   dispatch({ type: POST_HOLDING, payload: response });
   history.push("/projects/crypto_app/holdings");
@@ -113,14 +109,12 @@ export const updateHolding = (formValues) => async (dispatch, getState) => {
   const response = await cryptoAppApi.patch(
     "/holdings/?id=" + userId, { "formValues": formValues }
   ).then((e) => {
-    console.log(e);
+    dispatch(fetchHoldings());
   }).catch((error) => {
     console.log(error.response);
   });
-  console.log(response);
 
   dispatch({ type: UPDATE_HOLDING, payload: response });
-  // history.push("/projects/crypto_app/holdings");
 }
 
 export const deleteHolding = (symbol) => async (dispatch, getState) => {
@@ -129,12 +123,10 @@ export const deleteHolding = (symbol) => async (dispatch, getState) => {
   const response = await cryptoAppApi.delete(
     "/holdings/?id=" + userId + "&symbol=" + symbol
   ).then((e) => {
-    console.log(e);
     dispatch(fetchHoldings());
   }).catch((error) => {
     console.log(error.response);
   });
-  // console.log(response);
 
   dispatch({ type: DELETE_HOLDING, payload: response });
 }

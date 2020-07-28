@@ -110,6 +110,64 @@ body {
   color: red;
 }
 
+form{
+  margin: 0 auto;
+  padding: 0 10px;
+  max-width: 650px;
+}
+
+.modal form{
+  padding: 0;
+}
+
+.field{
+  /* float: left; */
+  margin-bottom: 8px;
+  /* height: 20px; */
+}
+
+label{
+  display: inline-block;
+  margin: 0 5px;
+  /* float: left; */
+  /* width: 270px; */
+}
+
+input{
+  width: 270px;
+  /* float: right; */
+}
+
+select{
+  width: 280px;
+  /* float: right; */
+}
+
+.error{
+  display: block;
+    margin: 3px auto 10px;
+    background-color: rgb(255 0 0 / 0.6);
+    padding: 2px;
+    border-radius: 8px;
+    color: #fff;
+    border: solid 2px red;
+    max-width: 200px;
+    font-size: 13px;
+}
+
+/* .error{
+  display: block;
+  margin: 0px 5px;
+  background-color: rgb(255 0 0 / 0.6);
+  padding: 2px 15px;
+  border-radius: 8px;
+  color: #fff;
+  border: solid 2px red;
+  max-width: 200px;
+  font-size: 13px;
+  float: right;
+} */
+
 .list {
   padding: 0;
 }
@@ -142,19 +200,30 @@ body {
   border-radius: 0 8px 8px 0;
 }
 
+.listItem .editBtn {
+  display: inline-block;
+  color: #fff;
+  border:0;
+  border-radius: 4px;
+  width: 40%;
+  cursor: pointer;
+  background-color: #449966;
+  margin: 0 5%;
+}
+
 .listItem .deleteBtn {
   display: inline-block;
   color: #fff;
   border:0;
   border-radius: 4px;
-  width: 70%;
-  margin: 0;
+  width: 40%;
+  /* margin: 0; */
 }
 
-/* .listItem .deleteBtn:hover,
-.listItem .deleteBtn:active {
-  background-color: #ea0606;
-} */
+.listItem .editBtn:hover,
+.listItem .editBtn:active {
+  background-color: #2fca6d;
+}
 
 .container {
   /*border: 2px #333 solid;*/
