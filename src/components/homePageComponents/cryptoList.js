@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { fetchCryptoData, fetchUser } from "../actions";
+import { fetchCryptoData, fetchUser } from "../../actions";
 import { CryptoInfoBox } from "./CryptoInfoBox";
 
 class CryptoList extends React.Component {
@@ -8,7 +8,7 @@ class CryptoList extends React.Component {
     if (this.props.holdings.length && this.props.currency !== undefined) {
       const requestedSymbols = this.getHoldingsSymbols(this.props.holdings);
       this.props.fetchCryptoData(requestedSymbols, this.props.currency).then(data => {
-        this.mergeCryptoData();
+        // this.mergeCryptoData();
       });
     }
   }
@@ -21,7 +21,7 @@ class CryptoList extends React.Component {
       const requestedSymbols = this.getHoldingsSymbols(this.props.holdings);
       this.props.fetchCryptoData(requestedSymbols, this.props.currency).then(data => {
         console.log('crypto data refreshed');
-        this.mergeCryptoData();
+        // this.mergeCryptoData();
       });
     }
   }
@@ -41,28 +41,26 @@ class CryptoList extends React.Component {
     return result;
   }
 
-  mergeCryptoData = (crypto, holdings) => {
-    crypto = this.props.crypto;
-    holdings = this.props.holdings;
+  // mergeCryptoData = (crypto, holdings) => {
+  //   crypto = this.props.crypto;
+  //   holdings = this.props.holdings;
 
-    crypto.map((item, index) => {
-      for (let i = 0; i < holdings.length; i++) {
-        if (item.symbol == holdings[i].symbol) {
-          return (
-            item.amount = holdings[i].amount,
-            item.invested = holdings[i].invested
-          );
-        }
-      }
-    });
+  //   crypto.map((item, index) => {
+  //     for (let i = 0; i < holdings.length; i++) {
+  //       if (item.symbol == holdings[i].symbol) {
+  //         return (
+  //           item.amount = holdings[i].amount,
+  //           item.invested = holdings[i].invested
+  //         );
+  //       }
+  //     }
+  //   });
+  // }
 
-    // this.props.mergedCrypto = crypto;
-  }
-
-  sortCryptoData = (crypto) => {
-    let cryptoArray = [];
-    return cryptoArray;
-  }
+  // sortCryptoData = (crypto) => {
+  //   let cryptoArray = [];
+  //   return cryptoArray;
+  // }
 
   calculateProfit = (quantity, value, invested) => {
     const profit = quantity * value - invested;
@@ -94,15 +92,15 @@ class CryptoList extends React.Component {
 
   render() {
     if (this.props.holdings !== undefined && this.props.isSignedIn) {
-      return <div className="mainContent">{this.renderList()}</div>;
+      return <div>{this.renderList()}</div>;
     } else {
-      return <div className="mainContent">Login to add your holdings and see live crypto stats.</div>;
+      return <div>Login to add your holdings and see live crypto stats.</div>;
     }
   }
 }
 
 const mapStateToProps = state => {
-  return { crypto: state.crypto, holdings: state.holdings, currency: state.user.currency, isSignedIn: state.auth.isSignedIn, mergedCrypto: [] };
+  return { crypto: state.crypto, holdings: state.holdings, currency: state.user.currency, isSignedIn: state.auth.isSignedIn };
 };
 
 export default connect(mapStateToProps, { fetchCryptoData, CryptoInfoBox, fetchUser })(CryptoList);

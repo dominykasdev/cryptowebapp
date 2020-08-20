@@ -2,7 +2,7 @@ import cryptoAppApi from "../apis/cryptoAppApi";
 import { SIGN_IN, SIGN_OUT, TOGGLE_MENU, TOGGLE_MODAL, FETCH_CRYPTO, FETCH_USER, UPDATE_USER, REGISTER_USER, DELETE_USER, FETCH_HOLDINGS, POST_HOLDING, UPDATE_HOLDING, DELETE_HOLDING, DELETE_HOLDINGS } from "./type";
 import history from '../history';
 
-export const fetchCryptoData = (symbols, currency) => async dispatch => {
+export const fetchCryptoData = (symbols, currency) => async (dispatch, getState) => {
   const livePath = "/realtime_data/";
   const placeholderPath = "/projects/api/displayDataPlaceholder.php";
   let urlPath = '';
@@ -14,11 +14,26 @@ export const fetchCryptoData = (symbols, currency) => async dispatch => {
   );
 
   let cryptoArray = [];
-
+  // Convert response data to array
   for (var key in response.data.data) {
     if (response.data.data.hasOwnProperty(key)) {
       cryptoArray.push(response.data.data[key]);
     }
+  }
+
+  // Merge holdings amounts with crypto data
+  const holdings = getState().holdings;
+  if (holdings.length) {
+    cryptoArray.map((item, index) => {
+      for (let i = 0; i < holdings.length; i++) {
+        if (item.symbol == holdings[i].symbol) {
+          return (
+            item.amount = holdings[i].amount,
+            item.invested = holdings[i].invested
+          );
+        }
+      }
+    });
   }
 
   dispatch({ type: FETCH_CRYPTO, payload: cryptoArray });

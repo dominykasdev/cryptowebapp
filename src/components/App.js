@@ -1,7 +1,7 @@
 import React from "react";
 import { Router, Route, Switch } from 'react-router-dom';
 import history from '../history';
-import CryptoList from "./cryptoList";
+import HomePage from './homePageComponents';
 import Header from "./headerComponents/header";
 import MainMenu from "./MainMenu";
 import userProfile from "./userProfileComponents/userProfile";
@@ -18,7 +18,7 @@ const App = () => {
           <Header />
           <MainMenu />
           <Switch>
-            <Route path="/projects/crypto_app/" exact component={CryptoList} />
+            <Route path="/projects/crypto_app/" exact component={HomePage} />
             <Route path="/projects/crypto_app/profile" exact component={userProfile} />
             <Route path="/projects/crypto_app/holdings" exact component={userHoldings} />
             <Route path="/projects/crypto_app/holdings/add" exact component={addHoldingForm} />

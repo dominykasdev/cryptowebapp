@@ -25,18 +25,6 @@ export const CryptoInfoBox = props => {
         return number;
     };
 
-    // const displayHoldings = (amount) => {
-    //     if (amount !== 0) {
-    //         return (
-    //             <div>
-    //                 <div className="infoBoxAmount alt">{round(props.amount, 5)}</div>
-    //                 <div className="infoBoxAmountValue">${round(props.amountValue, 3)}</div>
-    //             </div>
-
-    //         );
-    //     }
-    // }
-
     return (
         <div
             id={props.infoBoxID}

@@ -316,7 +316,21 @@ select{
   z-index: 2;
 }
 
+.userTotals{
+  width: 50%;
+  margin: auto;
+}
 
+.userTotals .inlineBlock{
+  width: 30%;
+  margin: auto;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.userTotals .inlineBlock span{
+
+}
 
 .fullscreen{
   position: fixed;
