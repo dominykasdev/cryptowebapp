@@ -321,15 +321,11 @@ select{
   margin: auto;
 }
 
-.userTotals .inlineBlock{
+.userTotals div{
   width: 30%;
   margin: auto;
   font-size: 18px;
   font-weight: 700;
-}
-
-.userTotals .inlineBlock span{
-
 }
 
 .fullscreen{
@@ -723,6 +719,10 @@ select{
     font-size: 16px;
     font-weight: 700;
   }
+
+  .userTotals{
+    width: 100%;
+  }
 }
 
 /* 
@@ -764,5 +764,14 @@ select{
     cursor: pointer;
     font-size: 16px;
     font-weight: 700;
+  }
+
+  .userTotals{
+    width: 100%;
+  }
+
+  .userTotals div{
+    width: 80%;
+    margin-bottom: 5px;
   }
 }

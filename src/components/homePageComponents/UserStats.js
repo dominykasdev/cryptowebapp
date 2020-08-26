@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { calculateProfit, calculateRevenue } from '../calculateHolding';
 
 class UserStats extends React.Component {
 
@@ -23,8 +22,8 @@ class UserStats extends React.Component {
 
         crypto.map(item => {
             totalInvested += parseFloat(item.invested);
-            totalValue += calculateRevenue(item.amount, parseFloat(item.quote[this.props.currency].price));
-            totalProfit += calculateProfit(item.amount, item.quote[this.props.currency].price, item.invested);
+            totalValue += item.revenue;
+            totalProfit += item.profit;
         });
 
         return (

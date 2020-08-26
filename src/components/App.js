@@ -8,6 +8,7 @@ import userProfile from "./userProfileComponents/userProfile";
 import userHoldings from './userHoldingsComponents/userHoldings';
 import addHoldingForm from './userHoldingsComponents/addHoldingForm';
 import pageNotFound from './pageNotFound';
+import pieChart from './homePageComponents/pieChart';
 
 const App = () => {
   // console.log(history);
@@ -19,6 +20,7 @@ const App = () => {
           <MainMenu />
           <Switch>
             <Route path="/projects/crypto_app/" exact component={HomePage} />
+            <Route path="/projects/crypto_app/chart" exact component={pieChart} />
             <Route path="/projects/crypto_app/profile" exact component={userProfile} />
             <Route path="/projects/crypto_app/holdings" exact component={userHoldings} />
             <Route path="/projects/crypto_app/holdings/add" exact component={addHoldingForm} />

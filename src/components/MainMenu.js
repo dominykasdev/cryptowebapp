@@ -37,6 +37,7 @@ class MainMenu extends React.Component {
                     <Link to="/projects/crypto_app/" className={`link ${this.props.path == '/projects/crypto_app/' ? 'selected' : ''}`}>Home</Link>
                     <Link to="/projects/crypto_app/profile" className={`link ${this.props.path == '/projects/crypto_app/profile' ? 'selected' : ''}`}>Profile</Link>
                     <Link to="/projects/crypto_app/holdings" className={`link ${this.props.path == '/projects/crypto_app/holdings' ? 'selected' : ''}`}>Holdings</Link>
+                    <Link to="/projects/crypto_app/chart" className={`link ${this.props.path == '/projects/crypto_app/chart' ? 'selected' : ''}`}>Chart</Link>
                 </div>
             )
         } else {

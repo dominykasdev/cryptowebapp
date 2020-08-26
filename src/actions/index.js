@@ -1,6 +1,7 @@
 import cryptoAppApi from "../apis/cryptoAppApi";
 import { SIGN_IN, SIGN_OUT, TOGGLE_MENU, TOGGLE_MODAL, FETCH_CRYPTO, FETCH_USER, UPDATE_USER, REGISTER_USER, DELETE_USER, FETCH_HOLDINGS, POST_HOLDING, UPDATE_HOLDING, DELETE_HOLDING, DELETE_HOLDINGS } from "./type";
 import history from '../history';
+import { calculateRevenue, calculateProfit } from "../components/calculateHolding";
 
 export const fetchCryptoData = (symbols, currency) => async (dispatch, getState) => {
   const livePath = "/realtime_data/";
@@ -29,7 +30,9 @@ export const fetchCryptoData = (symbols, currency) => async (dispatch, getState)
         if (item.symbol == holdings[i].symbol) {
           return (
             item.amount = holdings[i].amount,
-            item.invested = holdings[i].invested
+            item.invested = holdings[i].invested,
+            item.revenue = calculateRevenue(holdings[i].amount, item.quote.USD.price),
+            item.profit = calculateProfit(holdings[i].amount, item.quote.USD.price, holdings[i].invested)
           );
         }
       }
